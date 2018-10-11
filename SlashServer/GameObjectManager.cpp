@@ -142,6 +142,7 @@ void GameObjectManager::DisconnectPlayer(GameObject* player) {
 	p.size = sizeof(p);
 	p.type = SC_REMOVE_OBJECT;
 
+	pPlayer->isActive_ = false;
 	pPlayer->vlm_.lock();
 	unordered_set <GameObject*> vlCopy = pPlayer->viewList_;
 	pPlayer->vlm_.unlock();
@@ -158,7 +159,6 @@ void GameObjectManager::DisconnectPlayer(GameObject* player) {
 			playerObject->vlm_.unlock();
 			SendManager::SendPacket(object, &p);
 		}
-	
 		else
 			playerObject->vlm_.unlock();
 	}
